@@ -1,39 +1,18 @@
 
-import com.example.Animal;
 import com.example.Feline;
-import org.junit.Before;
-import org.junit.Test;
-import org.mockito.Mockito;
+import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
-import static org.junit.Assert.assertEquals;
-import static org.mockito.Mockito.when;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class FelineTest {
 
-    private Feline feline;
-    private Animal mockAnimal;
-
-    @Before
-    public void setUp() {
-        // Создаем мок для класса Animal
-        mockAnimal = Mockito.mock(Animal.class);
-        // Создаем экземпляр Feline с мокированным Animal
-        feline = new Feline() {
-            @Override
-            public List<String> getFood(String animalKind) throws Exception {
-                return mockAnimal.getFood(animalKind);
-            }
-        };
-    }
-
     @Test //Проверяем, что кошачий (хищник) ест правильную еду для хищников
     public void eatMeatReturnFoodForPredators() throws Exception {
-        // Настройка мока
-        when(mockAnimal.getFood("Хищник")).thenReturn(List.of("Животные", "Птицы", "Рыба"));
-        List<String> food = feline.eatMeat();
-        assertEquals(List.of("Животные", "Птицы", "Рыба"), food);
+        Feline feline = new Feline();
+        List<String> expectedFood = List.of("Животные", "Птицы", "Рыба");
+        assertEquals(expectedFood, feline.eatMeat());
     }
 
     @Test //Проверяем, что кошачий - кошачий
