@@ -20,23 +20,11 @@ public class LionTest {
         MockitoAnnotations.openMocks(this);
     }
 
-    @Test //Проверяем, что у льва есть грива
-    public void lionHasManeWhenSexIsMale() throws Exception {
-        Lion lion = new Lion("Самец");
-        assertTrue(lion.doesHaveMane(), "У льва должна быть грива");
-    }
-
-    @Test // Проверяем  что у львицы нет гривы
-    public void lionDoesNotHaveManeWhenSexIsFemale() throws Exception {
-        Lion lion = new Lion("Самка");
-        assertFalse(lion.doesHaveMane(), "У львицы не должно быть гривы");
-    }
-
     @Test // Проверяем что нельзя создать льва с неверным полом
     public void lionThrowsExceptionForInvalidSex() {
         try {
             // Пытаемся создать экземпляр Lion с недопустимым значением
-            new Lion("Недопустимое значение");
+            new Lion("Недопустимое значение", feline);
             fail("Всё сломалось, исключение не создано"); // Если исключение не выбрасывается, тест не проходит
         } catch (Exception e) {
             // Проверяем  что сообщение исключения соответствует ожидаемому
@@ -50,22 +38,38 @@ public class LionTest {
         when(feline.getKittens()).thenReturn(333);
 
         // Создаем экземпляр Lion, передавая мок Feline через инъекцию зависимости
-        Lion lion = new Lion("Самец");
-        lion.feline = feline;
+        Lion lion = new Lion("Самец", feline);
 
         assertEquals(333, lion.getKittens());
     }
 
-    @Test //проверяем, что метод getFood() возвращает правильную еду - для хищников
+    @Test // Проверяем, что метод getFood() возвращает правильную еду - для хищников
     public void getFoodReturnFoodForPredators() throws Exception {
         // Настраиваем мок-объект feline для возврата списка еды
         List<String> foodList = List.of("Мясо", "Рыба");
         when(feline.getFood("Хищник")).thenReturn(foodList);
 
         // Создаем экземпляр Lion, передавая мок Feline через инъекцию зависимости
-        Lion lion = new Lion("Самец");
-        lion.feline = feline;
+        Lion lion = new Lion("Самец", feline);
 
+        // Проверяем, что getFood возвращает правильный список еды
         assertEquals(foodList, lion.getFood());
+
     }
+
+    @Test // Проверяем  методд HaveMane()
+    public void doesHaveManeReturnsCorrectValue() throws Exception {
+        Lion maleLion = new Lion("Самец", feline);
+        Lion femaleLion = new Lion("Самка", feline);
+
+        assertTrue(maleLion.doesHaveMane());
+        assertFalse(femaleLion.doesHaveMane());
+    }
+
+    @Test // Проверяем методд getFeline()
+    public void getFelineReturnsCorrectFeline() throws Exception {
+        Lion lion = new Lion("Самец", feline);
+        assertEquals(feline, Lion.getFeline());
+    }
+
 }

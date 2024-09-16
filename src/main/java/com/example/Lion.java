@@ -5,10 +5,10 @@ import java.util.List;
 public class Lion {
 
     private boolean hasMane; //Есть ли грива?
-    public Feline feline; // Для зависимости
+    private static Feline feline; // Для зависимости
 
     //Принимаем пол льва и его пренадлежность
-    public Lion(String sex) throws Exception {
+    public Lion(String sex, Feline feline) throws Exception {
         this.feline = feline; //инициализация feline
         //Если самец - грива есть
         if ("Самец".equals(sex)) {
@@ -22,9 +22,13 @@ public class Lion {
         }
     }
 
+    public static Feline getFeline(){
+        return feline;
+    }
     //Получаем кол-во котят
     public int getKittens() {
-        return feline.getKittens();
+        int kittens = feline.getKittens();
+        return kittens;
     }
 
     //Узнаём - есть ли грива
