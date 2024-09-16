@@ -47,6 +47,6 @@ public class LionParameterizedTest {
         // Создаем объект Lion с моком Feline
         Lion lion = new Lion(sex, felineMock);
         // Проверяем, что getFeline возвращает мок объекта Feline
-        Assert.assertEquals(felineMock, Lion.getFeline());
+        Assert.assertEquals(felineMock, lion.getFeline());
     }
 }

@@ -5,7 +5,7 @@ import java.util.List;
 public class Lion {
 
     private boolean hasMane; //Есть ли грива?
-    private static Feline feline; // Для зависимости
+    private Feline feline; // Для зависимости
 
     //Принимаем пол льва и его пренадлежность
 <span class="fc" id="L11">    public Lion(String sex, Feline feline) throws Exception {</span>
@@ -22,7 +22,7 @@ public class Lion {
         }
 <span class="fc" id="L23">    }</span>
 
-    public static Feline getFeline(){
+    public Feline getFeline(){
 <span class="fc" id="L26">        return feline;</span>
     }
     //Получаем кол-во котят

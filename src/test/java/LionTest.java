@@ -69,7 +69,7 @@ public class LionTest {
     @Test // Проверяем методд getFeline()
     public void getFelineReturnsCorrectFeline() throws Exception {
         Lion lion = new Lion("Самец", feline);
-        assertEquals(feline, Lion.getFeline());
+        assertEquals(feline, lion.getFeline());
     }
 
 }
